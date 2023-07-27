@@ -1,33 +1,37 @@
 # Intune for Archlinux
 
-There are two levels of Intune Setup. 
+There are two levels of Intune Setup.
 
-After installing level-1, you can access everything with certificate copied from a level-2 machine.   
-After installing level-2, you can actually enroll the machine and get a certificate. 
+After installing level-1, you can access everything with certificate copied from a level-2 machine.
+After installing level-2, you can actually enroll the machine and get a certificate.
+
+## How the fork is different
+
+- Packages are updated to match the latest versions in Ubuntu 22.04
+- Utilizing [sdbus-cpp](https://aur.archlinux.org/packages/sdbus-cpp) instead of [building](https://github.com/recolic/microsoft-intune-archlinux/blob/master/libsdbus-c%2B%2B0/PKGBUILD) one from .deb
+- Scripts to backup/restore all necessary files (Level-2 -> Level-1 machine)
 
 ## Install Level-1
 
-1. Install `libsdbus-c++0 msalsdk-dbusclient microsoft-identity-broker` packages in this repo. Note that they depends on `jre11-openjdk`. 
-2. Install `microsoft-edge-stable-bin` from AUR. 
-3. `[Temporary Fix]` Downgrade `tpm2-tss` to `3.2.0-1`, and add it to `IgnorePkg` in `/etc/pacman.conf`.
+1. Install `sdbus-cpp` from AUR.
+2. Install `microsoft-identity-broker` and `msalsdk-dbusclient` packages in this repo.
+3. Install `microsoft-edge-stable-bin` from AUR.
+
+> See [l1-quickinstall.sh](./l1-quickinstall.sh)
 
 ## Install Level-2 and enroll
 
 > Installing level-2 components will make your machine managed. You must satisfy password requirements, and disk-encryption requirements. Ref: <https://aka.ms/LinuxPortal>
 
-Use a Ubuntu **20.04** VM to perform level-2 enroll. ArchLinux level-2 enroll is theoretically supported, but I never tested it. 
+Use a Ubuntu **22.04** VM to perform level-2 enroll. ArchLinux level-2 enroll is theoretically supported, but I never tested it.
 
-1. install intune-portal and its dependencies (pwquality)
-2. copy /etc/os-release from ubuntu 2004 to archlinux
-3. make sure you followed procedure of official doc
-
-It's suggested to keep the Ubuntu VM powered-on forever, to keep the certificate valid. 
+It's suggested to keep the Ubuntu VM powered-on forever, to keep the certificate valid.
 
 ## Move certificates from Level-2 machine to Level-1 machine
 
 > You need to keep your level-2 machine running, or your certificate will invalidate in 1 month. 
 
-Copy the following files from enrolled Level-2 machine to unenrolled Level-1 machine: 
+Copy the following files from enrolled Level-2 machine to unenrolled Level-1 machine:
 
 ```
 /var/lib/microsoft-identity-device-broker/1000.db
@@ -39,7 +43,9 @@ Copy the following files from enrolled Level-2 machine to unenrolled Level-1 mac
 /home/YourName/.local/share/keyrings/login.keyring
 ```
 
-**Reboot** to make sure gnome-keyring-daemon is using the latest keyring file. 
+> See [backup.sh](./backup.sh) and [restore.sh](./restore.sh)
+
+**Reboot** to make sure gnome-keyring-daemon is using the latest keyring file.
 
 Then, run `seahorse` to double-confirm your "login" keyring is unlocked and non-empty. It may ask you to enter the previous login password. 
 

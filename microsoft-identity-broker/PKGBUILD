@@ -1,13 +1,18 @@
-# Maintainer: Recolic K <root@recolic.net>
+# apt show microsoft-identity-broker
 
 pkgname=microsoft-identity-broker
-pkgver=1.5.1
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="microsoft-identity-broker"
-url="https://packages.microsoft.com/ubuntu/20.04/prod/pool/main/m/microsoft-identity-broker"
+url="https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/microsoft-identity-broker"
 license=("GPL2")
 arch=("x86_64")
-depends=("dbus" "gnome-keyring" "systemd" "jre11-openjdk")
+# Depends: default-jre, systemd, dbus-session-bus, dbus-system-bus, gnome-keyring
+# default-jre -> jre11-openjdk
+# systemd -> systemd
+# dbus-session-bus, dbus-system-bus -> dbus
+# gnome-keyring -> gnome-keyring
+depends=("jre11-openjdk" "systemd" "dbus" "gnome-keyring")
 makedepends=()
 provides=("msft-identity-broker=${pkgver}")
 conflicts=("msft-identity-broker")
@@ -15,7 +20,7 @@ replaces=("msft-identity-broker")
 backup=()
 source=("source.deb::$url/${pkgname}_${pkgver}_amd64.deb")
 validpgpkeys=("")
-sha256sums=("2438b186365c527f546c59e0e3a5c660c431739a12026ad89c2e0acad56ce443")
+sha256sums=("89db5b4980ff7b5074e956ca1f467ec7d68cfb330eafe2e74c96ffd69f0aa155")
 install=x.install
 
 package() {
@@ -27,5 +32,3 @@ package() {
   echo 'Environment="JAVA_HOME=/usr/lib/jvm/java-11-openjdk"' >> "$srcdir/usr/lib/systemd/user/microsoft-identity-broker.service"
   cp -r "$srcdir/usr" "$srcdir/opt" "$pkgdir/"
 }
-
-

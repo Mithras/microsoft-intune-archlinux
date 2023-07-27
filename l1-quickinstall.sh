@@ -1,12 +1,9 @@
 #!/bin/bash
 
 function i () {
-    cd "$1" &&
-        makepkg -i
+    cd "$1" && makepkg -i
 }
 
-sudo pacman -Sy --noconfirm jre11-openjdk
-( i libsdbus-c++0 )
+paru -S sdbus-cpp
 ( i microsoft-identity-broker )
 ( i msalsdk-dbusclient )
-
