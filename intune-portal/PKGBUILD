@@ -1,0 +1,41 @@
+# apt show intune-portal
+# Depends: libstdc++6 (>= 12), libglib2.0-0 (>= 2.35.8), libglib2.0-0 (>= 2.12.0), libssl3 (>= 3.0.0~~alpha1), gnome-keyring (>= 3.36), libuuid1 (>= 2.16), libsecret-1-0 (>= 0.7), msalsdk-dbusclient (>= 1.0), libjavascriptcoregtk-4.0-18 (>= 2.38.5), libx11-6, libgtk-3-0 (>= 3.21.4), libsqlite3-0 (>= 3.7.14), zlib1g (>= 1:1.2.0), libpango-1.0-0 (>= 1.14.0), libpam-pwquality (>= 1.4.0-2), libwebkit2gtk-4.0-37 (>= 2.5.3), libc6 (>= 2.34), libcurl4 (>= 7.16.2), libpam0g (>= 0.99.7.1), libgtk-3-0 (>= 3.9.10), libsoup2.4-1 (>= 2.4.0), libsystemd0, libatk1.0-0 (>= 1.12.4)
+# libstdc++6 -> ??? (lib32-gcc-libs?)
+# libglib2.0-0 -> glib2
+# libssl3 -> openssl
+# gnome-keyring -> gnome-keyring
+# libuuid1 -> util-linux-libs
+# libsecret-1-0 -> libsecret
+# msalsdk-dbusclient -> msalsdk-dbusclient
+# libjavascriptcoregtk-4.0-18 -> webkit2gtk
+# libx11-6 -> libx11
+# libgtk-3-0 -> gtk3
+# libsqlite3-0 -> sqlite
+# libpam0g -> pam
+# libsoup2.4-1 -> libsoup
+# libsystemd0 -> systemd
+# libatk1.0-0 -> ??? (atkmm?)
+
+pkgname=intune-portal
+pkgver=1.2305.20
+pkgrel=1
+pkgdesc="Microsoft Intune"
+url="https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/i/intune-portal"
+license=("GPL2")
+arch=("x86_64")
+depends=("glib2" "openssl" "gnome-keyring" "util-linux-libs" "libsecret" "msalsdk-dbusclient" "webkit2gtk" "libx11" "gtk3" "sqlite" "pam" "libsoup" "systemd")
+makedepends=()
+conflicts=()
+replaces=()
+backup=()
+source=("source.deb::$url/${pkgname}_${pkgver}_amd64.deb")
+validpgpkeys=("")
+sha256sums=("42eec710ea567b11ee2942cab1abca0524b1bcfb14f916f614c0202cfd891e0f")
+
+package() {
+  cd "$srcdir"
+  ar x source.deb
+  tar xvf data.tar.xz
+  cp -r "$srcdir/opt" "$srcdir/usr" "$pkgdir/"
+  cp -r "$srcdir/lib" "$pkgdir/usr/"
+}

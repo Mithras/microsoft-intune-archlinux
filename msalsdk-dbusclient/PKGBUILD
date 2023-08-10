@@ -1,4 +1,10 @@
 # apt show msalsdk-dbusclient
+# Depends: microsoft-identity-broker (>= 1.2), libc6 (>= 2.14), libgcc-s1 (>= 3.0), libsdbus-c++1 (>= 1.1.0), libstdc++6 (>= 6)
+# microsoft-identity-broker -> microsoft-identity-broker
+# libc6 -> glibc
+# libgcc-s1 -> gcc-libs
+# libsdbus-c++1 -> sdbus-cpp
+# libstdc++6 -> ??? (lib32-gcc-libs?)
 
 pkgname=msalsdk-dbusclient
 pkgver=1.0.1
@@ -7,13 +13,7 @@ pkgdesc="Microsoft Authentication Library cross platform. Dbus client for talkin
 url="https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/msalsdk-dbusclient"
 license=("GPL2")
 arch=("x86_64")
-# Depends: microsoft-identity-broker (>= 1.2), libc6 (>= 2.14), libgcc-s1 (>= 3.0), libsdbus-c++1 (>= 1.1.0), libstdc++6 (>= 6)
-# microsoft-identity-broker -> microsoft-identity-broker
-# libc6 -> glibc
-# libgcc-s1 -> gcc-libs
-# libsdbus-c++1 -> sdbus-cpp
-# libstdc++6 -> lib32-gcc-libs?
-depends=("microsoft-identity-broker>=1.2" "glibc>=2.14" "gcc-libs>=3.0" "sdbus-cpp>=1.1.0")
+depends=("microsoft-identity-broker" "glibc" "gcc-libs" "sdbus-cpp")
 makedepends=()
 conflicts=()
 replaces=()

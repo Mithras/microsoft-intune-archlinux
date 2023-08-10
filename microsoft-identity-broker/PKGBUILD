@@ -1,4 +1,9 @@
 # apt show microsoft-identity-broker
+# Depends: default-jre, systemd, dbus-session-bus, dbus-system-bus, gnome-keyring
+# default-jre -> jre11-openjdk
+# systemd -> systemd
+# dbus-session-bus, dbus-system-bus -> dbus
+# gnome-keyring -> gnome-keyring
 
 pkgname=microsoft-identity-broker
 pkgver=1.6.0
@@ -7,11 +12,6 @@ pkgdesc="microsoft-identity-broker"
 url="https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/microsoft-identity-broker"
 license=("GPL2")
 arch=("x86_64")
-# Depends: default-jre, systemd, dbus-session-bus, dbus-system-bus, gnome-keyring
-# default-jre -> jre11-openjdk
-# systemd -> systemd
-# dbus-session-bus, dbus-system-bus -> dbus
-# gnome-keyring -> gnome-keyring
 depends=("jre11-openjdk" "systemd" "dbus" "gnome-keyring")
 makedepends=()
 provides=("msft-identity-broker=${pkgver}")

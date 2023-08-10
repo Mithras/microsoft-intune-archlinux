@@ -1,3 +1,4 @@
+mkdir -p ./data
 pushd ./data
 sudo cp /var/lib/microsoft-identity-device-broker/1000.db .
 sudo cp /etc/machine-id .
